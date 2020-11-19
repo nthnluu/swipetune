@@ -68,8 +68,8 @@ const AppView = () => {
         <NavigationBar className="fixed top-0 w-full"/>
         {data && <div className="mx-4 text-center">
             <motion.img animate={audio ? {scale: 1, opacity: 1} : {scale: 0.75, opacity: 0.75}}
-                        src={data.album.images[0].url} className="rounded-xl mx-auto"/>
-            <div className="w-screen mx-auto">
+                        src={data.album.images[0].url} className="rounded-xl mx-auto shadow-2xl"/>
+            <div className="w-80 md:w-auto mx-auto">
                 <h1 className="text-xl md:text-4xl font-bold text-center mt-6 truncate px-4">{data.name}</h1>
                 <h2 className="text-lg md:text-2xl opacity-50 text-center mt-2 truncate px-4 truncate">{data.artists[0].name}</h2>
             </div>
