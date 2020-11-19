@@ -24,7 +24,7 @@ const AppView = () => {
                 audioSource.current.play()
             }
         }
-    }, [currentTrack])
+    }, [currentTrack, audio])
 
     function navigateForward() {
         setCurrentTrack(prevState => {
