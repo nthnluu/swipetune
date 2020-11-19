@@ -23,9 +23,9 @@ const AppView = () => {
 
     function swipeHandler(direction) {
         console.log(direction)
-        if (direction === "left") {
+        if (direction === "left" || direction === "ArrowLeft") {
             return navigateBackwards()
-        } else if (direction === "right") {
+        } else if (direction === "right" || direction === "ArrowRight") {
             return navigateForward()
         }
     }
@@ -66,6 +66,7 @@ const AppView = () => {
         }
     }
 
+
     return <div className="full-height flex justify-center items-center">
         <NavigationBar className="fixed top-0 w-full"/>
         {data && <div className="px-4 text-center">
@@ -74,8 +75,8 @@ const AppView = () => {
                             src={data.album.images[0].url} className="rounded-xl mx-auto shadow-xl"/>
             </TinderCard>
 
-            <h1 className="text-4xl font-bold text-center mt-6">{data.name}</h1>
-            <h2 className="text-2xl opacity-75 font-light text-center mt-2">{`${data && data.album.name} • ${data.artists[0].name}`}</h2>
+            <h1 className="text-2xl md:text-4xl font-bold text-center mt-6">{data.name}</h1>
+            <h2 className="text-lg md:text-2xl opacity-75 font-light text-center mt-2">{`${data && data.album.name} • ${data.artists[0].name}`}</h2>
             {!audio && <button className="px-6 mt-4 py-3 text-xl font-bold bg-frosted mx-auto rounded-lg"
                                onClick={() => playAudio(true)}>
                 <i className="fas fa-play mr-2"/>Resume Playback

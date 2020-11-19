@@ -1,4 +1,4 @@
-import {motion, useAnimation} from "framer"
+import {useAnimation} from "framer"
 import {useEffect} from "react";
 import CrossfadeImage from "react-crossfade-image";
 
@@ -18,7 +18,7 @@ const BlurryImageBackground = ({image, children}) => {
             {children}
 
         </div>
-        <div className="absolute top-0">
+        <div className="absolute top-0 h-full">
             <CrossfadeImage src={image}
                             style={{height: '100%', width: '100%'}}
                             containerClass="absolute top-0 h-full w-screen opacity-75"/>
