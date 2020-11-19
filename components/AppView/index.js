@@ -17,18 +17,9 @@ const AppView = () => {
         // Whenever the currentTrack changes, update the page data
         if (data) {
             bgImgContext.setImage(data.album.images[0].url)
-            playAudio()
+            playAudio(data['preview_url'])
         }
     }, [currentTrack])
-
-    function swipeHandler(direction) {
-        console.log(direction)
-        if (direction === "left" || direction === "ArrowLeft") {
-            return navigateBackwards()
-        } else if (direction === "right" || direction === "ArrowRight") {
-            return navigateForward()
-        }
-    }
 
     function navigateForward() {
         setCurrentTrack(prevState => {
@@ -54,8 +45,8 @@ const AppView = () => {
         })
     }
 
-    function playAudio(force = false) {
-        const newAudio = new Audio(data['preview_url'])
+    function playAudio(newSrc, force = false) {
+        const newAudio = new Audio(newSrc)
         newAudio.loop = true
         bgImgContext.toggleBgDarkened(false)
 
@@ -98,7 +89,7 @@ const AppView = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
-                <button className={styles.circleButton} onClick={() => audio ? stopAudio() : playAudio(true)}>
+                <button className={styles.circleButton} onClick={() => audio ? stopAudio() : playAudio(data['preview_url'], true)}>
                     {audio ? <svg
                         className={styles.circleButtonIcon}
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
