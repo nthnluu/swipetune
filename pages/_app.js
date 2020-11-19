@@ -11,6 +11,7 @@ const BlurryImageBackground = dynamic(() => import("../components/BlurryImageBac
 function MyApp({Component, pageProps}) {
     const [session, setSession] = useState({status: 'LOADING', userId: undefined})
     const [bgImage, setBgImage] = useState("https://source.unsplash.com/random")
+    const [darkened, toggleBgDarkened] = useState(true)
     useEffect(() => {
         fb.auth().onAuthStateChanged((user) => {
             if (user) {
@@ -38,8 +39,8 @@ function MyApp({Component, pageProps}) {
 
 
     return <SessionContext.Provider value={session}>
-        <BackgroundImageContext.Provider value={setBgImage}>
-            <BlurryImageBackground image={bgImage}>
+        <BackgroundImageContext.Provider value={{setImage: (img) => setBgImage(img), toggleBgDarkened: (state) => toggleBgDarkened(state)}}>
+            <BlurryImageBackground image={bgImage} darkened={darkened}>
                 <Component {...pageProps} />
             </BlurryImageBackground>
         </BackgroundImageContext.Provider>

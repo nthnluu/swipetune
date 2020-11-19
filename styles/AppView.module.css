@@ -1,0 +1,7 @@
+.circleButton {
+    @apply p-3 bg-white rounded-full focus:outline-none opacity-75 hover:opacity-100 focus:opacity-100 transition-opacity duration-150
+}
+
+.circleButtonIcon {
+    @apply h-12 w-12 text-gray-800
+}

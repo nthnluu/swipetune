@@ -1,25 +1,25 @@
 import NavigationBar from "./NavigationBar";
 import {sampleData} from "../../lib/sampleData";
-import {useContext, useEffect, useState, useMemo} from "react";
+import {useContext, useEffect, useState, useMemo, useRef} from "react";
 import {motion} from 'framer';
 import BackgroundImageContext from "../../lib/context/BackgroundImageContext";
-import TinderCard from 'react-tinder-card'
-import fb from "../../lib/firebase";
+import styles from '../../styles/AppView.module.css'
 
 const AppView = () => {
     const [currentTrack, setCurrentTrack] = useState(0)
     const tracks = useMemo(() => sampleData.tracks.filter(track => track.preview_url), [])
     const data = tracks[currentTrack]
     const [audio, setAudio] = useState(undefined)
-    const setBgImg = useContext(BackgroundImageContext)
+    const bgImgContext = useContext(BackgroundImageContext)
 
     useEffect(() => {
         // fb.auth().signOut()
+        // Whenever the currentTrack changes, update the page data
         if (data) {
-            setBgImg(data.album.images[0].url)
+            bgImgContext.setImage(data.album.images[0].url)
             playAudio()
         }
-    }, [data])
+    }, [currentTrack])
 
     function swipeHandler(direction) {
         console.log(direction)
@@ -55,6 +55,7 @@ const AppView = () => {
     function playAudio(force = false) {
         const newAudio = new Audio(data['preview_url'])
         newAudio.loop = true
+        bgImgContext.toggleBgDarkened(false)
 
         if (audio) {
             audio.pause()
@@ -65,22 +66,55 @@ const AppView = () => {
             newAudio.play()
         }
     }
+    function stopAudio() {
+        if (audio) {
+            audio.pause()
+            setAudio(undefined)
+            bgImgContext.toggleBgDarkened(true)
+        }
 
+    }
 
     return <div className="full-height flex justify-center items-center">
         <NavigationBar className="fixed top-0 w-full"/>
         {data && <div className="px-4 text-center">
-            <TinderCard key={data} flickOnSwipe={false} onSwipe={swipeHandler}>
-                <motion.img animate={audio ? {scale: 1, opacity: 1} : {scale: 0.75, opacity: 0.75}}
-                            src={data.album.images[0].url} className="rounded-xl mx-auto shadow-xl"/>
-            </TinderCard>
+            <motion.img animate={audio ? {scale: 1, opacity: 1} : {scale: 0.75, opacity: 0.75}}
+                        src={data.album.images[0].url} className="rounded-xl mx-auto"/>
 
             <h1 className="text-2xl md:text-4xl font-bold text-center mt-6">{data.name}</h1>
             <h2 className="text-lg md:text-2xl opacity-75 font-light text-center mt-2">{`${data && data.album.name} • ${data.artists[0].name}`}</h2>
-            {!audio && <button className="px-6 mt-4 py-3 text-xl font-bold bg-frosted mx-auto rounded-lg"
-                               onClick={() => playAudio(true)}>
-                <i className="fas fa-play mr-2"/>Resume Playback
-            </button>}
+            <div className="flex justify-center space-x-6 items-center mt-6">
+                <button className={styles.circleButton}
+                        onClick={navigateBackwards}
+                >
+                    <svg className={styles.circleButtonIcon}
+                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <button className={styles.circleButton} onClick={() => audio ? stopAudio() : playAudio(true)}>
+                    {audio ? <svg
+                        className={styles.circleButtonIcon}
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg> :<svg
+                        className={styles.circleButtonIcon}
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>}
+
+                </button>
+                <button className={styles.circleButton}
+                        onClick={navigateForward}
+                >
+                    <svg
+                        className={styles.circleButtonIcon}
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                </button>
+            </div>
         </div>}
     </div>
 

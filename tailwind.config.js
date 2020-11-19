@@ -10,7 +10,11 @@ module.exports = {
             },
             fontFamily: {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-            }
+            },
+            spacing: {
+                '420': '420px',
+                '640': '640px'
+            },
         }
     },
     variants: {
