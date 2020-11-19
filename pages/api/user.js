@@ -4,7 +4,7 @@ export default async (req, res) => {
     if (req.method === 'POST') {
         const bodyData = JSON.parse(req.body)
         console.log(bodyData)
-        fbAdmin.firestore()
+        return new Promise(resolve => fbAdmin.firestore()
             .collection('users')
             .doc(bodyData.profile['id'])
             .set(bodyData)
@@ -12,6 +12,7 @@ export default async (req, res) => {
                 fbAdmin.auth().createCustomToken(bodyData.profile['id'])
                     .then(function(customToken) {
                         res.status(200).json({customToken});
+                        resolve()
                     })
                     .catch(function(error) {
                         console.log('Error creating custom token:', error);
@@ -22,6 +23,7 @@ export default async (req, res) => {
             .catch((error) => {
                 res.json({error});
                 res.status(404).end()
-            });
+            }))
+
     }
 };

@@ -4,6 +4,7 @@ import {useContext, useEffect, useState, useMemo} from "react";
 import {motion} from 'framer';
 import BackgroundImageContext from "../../lib/context/BackgroundImageContext";
 import TinderCard from 'react-tinder-card'
+import fb from "../../lib/firebase";
 
 const AppView = () => {
     const [currentTrack, setCurrentTrack] = useState(0)
@@ -13,6 +14,7 @@ const AppView = () => {
     const setBgImg = useContext(BackgroundImageContext)
 
     useEffect(() => {
+        // fb.auth().signOut()
         if (data) {
             setBgImg(data.album.images[0].url)
             playAudio()
