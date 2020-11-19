@@ -4,6 +4,7 @@ import {useContext, useEffect, useState, useMemo, useRef} from "react";
 import {motion} from 'framer';
 import BackgroundImageContext from "../../lib/context/BackgroundImageContext";
 import styles from '../../styles/AppView.module.css'
+import TinderCard from "react-tinder-card";
 
 const AppView = () => {
     const [currentTrack, setCurrentTrack] = useState(0)
@@ -18,9 +19,10 @@ const AppView = () => {
         // Whenever the currentTrack changes, update the page data
         if (data) {
             bgImgContext.setImage(data.album.images[0].url)
-            // playAudio(data['preview_url'])
-            audioSource.current.src = data['preview_url']
-            audioSource.current.play()
+            if (audio) {
+                audioSource.current.src = data['preview_url']
+                audioSource.current.play()
+            }
         }
     }, [currentTrack])
 
@@ -61,14 +63,26 @@ const AppView = () => {
         bgImgContext.toggleBgDarkened(true)
     }
 
+    function onSwipe (direction) {
+        console.log('You swiped: ' + direction)
+        if (direction === "left") {
+            navigateBackwards()
+        } else if (direction === "right") {
+            navigateForward()
+        }
+    }
+
     return <div className="full-height flex justify-center items-center">
         <audio ref={audioSource} loop className="hidden">
             <source src={audio}/>
         </audio>
         <NavigationBar className="fixed top-0 w-full"/>
         {data && <div className="mx-4 text-center">
-            <motion.img animate={audio ? {scale: 1, opacity: 1} : {scale: 0.75, opacity: 0.75}}
-                        src={data.album.images[0].url} className="rounded-xl mx-auto shadow-2xl"/>
+            <TinderCard flickOnSwipe={false} onSwipe={onSwipe}>
+                <motion.img animate={audio ? {scale: 1, opacity: 1} : {scale: 0.75, opacity: 0.75}}
+                            src={data.album.images[0].url} className="rounded-xl mx-auto shadow-2xl"/>
+            </TinderCard>
+
             <div className="w-80 md:w-auto mx-auto">
                 <h1 className="text-xl md:text-4xl font-bold text-center mt-6 truncate px-4">{data.name}</h1>
                 <h2 className="text-lg md:text-2xl opacity-50 text-center mt-2 truncate px-4 truncate">{data.artists[0].name}</h2>
