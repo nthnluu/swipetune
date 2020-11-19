@@ -37,6 +37,7 @@ export default async (req, res) => {
                         })
                             .then((fbToken) => fbToken.json())
                             .then((fbTokenJson) => {
+                                console.log(fbTokenJson)
                                 if (fbTokenJson) {
                                     res.writeHead(301, {
                                         Location: `/login?token=${fbTokenJson['customToken']}`
