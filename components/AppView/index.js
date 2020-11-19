@@ -1,9 +1,8 @@
 import NavigationBar from "./NavigationBar";
 import {sampleData} from "../../lib/sampleData";
 import {useContext, useEffect, useState, useMemo} from "react";
-import {Frame, motion} from 'framer';
+import {motion} from 'framer';
 import BackgroundImageContext from "../../lib/context/BackgroundImageContext";
-import fb from "../../lib/firebase";
 import TinderCard from 'react-tinder-card'
 
 const AppView = () => {

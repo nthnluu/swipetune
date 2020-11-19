@@ -11,6 +11,8 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <script src="https://kit.fontawesome.com/aeb9fcb31a.js" crossOrigin="anonymous"/>
+                    <link rel="stylesheet"
+                          href="https://fonts.googleapis.com/css?family=Inter"/>
                 </Head>
                 <body>
                 <Main />
