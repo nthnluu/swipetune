@@ -9,15 +9,18 @@ const AppView = () => {
     const [currentTrack, setCurrentTrack] = useState(0)
     const tracks = useMemo(() => sampleData.tracks.filter(track => track.preview_url), [])
     const data = tracks[currentTrack]
-    const [audio, setAudio] = useState(undefined)
+    const [audio, setAudio] = useState(false)
     const bgImgContext = useContext(BackgroundImageContext)
+    const audioSource = useRef(null)
 
     useEffect(() => {
         // fb.auth().signOut()
         // Whenever the currentTrack changes, update the page data
         if (data) {
             bgImgContext.setImage(data.album.images[0].url)
-            playAudio(data['preview_url'])
+            // playAudio(data['preview_url'])
+            audioSource.current.src = data['preview_url']
+            audioSource.current.play()
         }
     }, [currentTrack])
 
@@ -45,39 +48,30 @@ const AppView = () => {
         })
     }
 
-    function playAudio(newSrc, force = false) {
-        const newAudio = new Audio(newSrc)
-        newAudio.loop = true
+    function playAudio() {
+        setAudio(true)
+        audioSource.current.play()
         bgImgContext.toggleBgDarkened(false)
-
-        if (audio) {
-            audio.pause()
-            setAudio(newAudio)
-            newAudio.play()
-        } else if (force) {
-            setAudio(newAudio)
-            newAudio.play()
-        }
     }
 
-    function stopAudio() {
-        if (audio) {
-            audio.pause()
-            setAudio(undefined)
-            bgImgContext.toggleBgDarkened(true)
-        }
 
+    function stopAudio() {
+        setAudio(false)
+        audioSource.current.pause()
+        bgImgContext.toggleBgDarkened(true)
     }
 
     return <div className="full-height flex justify-center items-center">
+        <audio ref={audioSource} loop className="hidden">
+            <source src={audio}/>
+        </audio>
         <NavigationBar className="fixed top-0 w-full"/>
         {data && <div className="mx-4 text-center">
             <motion.img animate={audio ? {scale: 1, opacity: 1} : {scale: 0.75, opacity: 0.75}}
                         src={data.album.images[0].url} className="rounded-xl mx-auto"/>
-            <div className="w-64 md:w-auto mx-auto">
+            <div className="w-screen mx-auto">
                 <h1 className="text-xl md:text-4xl font-bold text-center mt-6 truncate px-4">{data.name}</h1>
-                <h2 className="text-lg md:text-2xl opacity-75 font-light text-center mt-2 truncate px-4 truncate">
-                    {`${data && data.album.name} • ${data.artists[0].name}`}</h2>
+                <h2 className="text-lg md:text-2xl opacity-50 text-center mt-2 truncate px-4 truncate">{data.artists[0].name}</h2>
             </div>
 
             <div className="flex justify-center space-x-6 items-center mt-6">
@@ -89,7 +83,7 @@ const AppView = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
-                <button className={styles.circleButton} onClick={() => audio ? stopAudio() : playAudio(data['preview_url'], true)}>
+                <button className={styles.circleButton} onClick={() => audio ? stopAudio() : playAudio()}>
                     {audio ? <svg
                         className={styles.circleButtonIcon}
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
