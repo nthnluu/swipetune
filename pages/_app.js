@@ -1,9 +1,12 @@
 import '../styles/globals.css'
-import BlurryImageBackground from "../components/BlurryImageBackground";
 import {useEffect, useState} from "react";
 import fb from "../lib/firebase";
 import SessionContext from "../lib/context/SessionContext";
 import BackgroundImageContext from "../lib/context/BackgroundImageContext";
+import dynamic from "next/dynamic";
+const BlurryImageBackground = dynamic(() => import("../components/BlurryImageBackground"), {
+    ssr: false,
+});
 
 function MyApp({Component, pageProps}) {
     const [session, setSession] = useState({status: 'LOADING', userId: undefined})

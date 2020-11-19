@@ -9,7 +9,7 @@ const AppView = () => {
 
     useEffect(() => {
         setBgImg(data.album.images[0].url)
-    }, [])
+    }, [data])
 
     return <div className="h-screen flex justify-center items-center">
         <NavigationBar className="fixed top-0 w-full"/>
@@ -17,6 +17,7 @@ const AppView = () => {
             <img src={data.album.images[0].url} className="rounded-xl mx-auto shadow-xl"/>
             <h1 className="text-4xl font-bold text-center mt-8">{data.name}</h1>
             <h2 className="text-2xl opacity-75 font-light text-center mt-2">{`${data.album.name} • ${data.artists[0].name}`}</h2>
+            <button onClick={() => setData(sampleData.tracks[1])}>next</button>
         </div>
 
 
