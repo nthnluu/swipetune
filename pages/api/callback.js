@@ -1,3 +1,5 @@
+import fb from "../../lib/firebase";
+
 export default async (req, res) => {
     res.statusCode = 200
     const {code, error} = req.query
@@ -35,11 +37,12 @@ export default async (req, res) => {
                         })
                             .then((fbToken) => fbToken.json())
                             .then((fbTokenJson) => {
-                                res.writeHead(301, {
-                                    Location: `/login?token=${fbTokenJson['customToken']}`
-                                });
-                                res.end();
-
+                                if (fbTokenJson) {
+                                    res.writeHead(301, {
+                                        Location: `/login?token=${fbTokenJson['customToken']}`
+                                    });
+                                    res.end();
+                                }
                                 // res.json({
                                 //     status: status,
                                 //     firebaseToken: fbTokenJson['customToken']

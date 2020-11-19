@@ -12,6 +12,7 @@ export default async (req, res) => {
                 fbAdmin.auth().createCustomToken(bodyData.profile['id'])
                     .then(function(customToken) {
                         res.json({customToken});
+                        return Promise.resolve({customToken})
                     })
                     .catch(function(error) {
                         console.log('Error creating custom token:', error);
