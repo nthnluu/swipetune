@@ -14,7 +14,7 @@ const BlurryImageBackground = ({image, children}) => {
     }, [image])
     return <div className="h-screen dark:bg-gray-900 bg-black text-white">
         <div className="z-50 relative h-screen overflow-auto"
-             style={{backdropFilter: "blur(98px)"}}>
+             style={{backdropFilter: "blur(98px)", "WebkitBackdropFilter": "blur(98px)"}}>
             {children}
 
         </div>

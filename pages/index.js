@@ -2,7 +2,10 @@ import LoginView from "../components/LoginView";
 import SessionContext from "../lib/context/SessionContext";
 import LoadingSpinner from "../components/LoadingSpinner";
 import {useContext, useEffect, useState} from "react";
-import AppView from "../components/AppView";
+import dynamic from "next/dynamic";
+const AppView = dynamic(() => import("../components/AppView"), {
+    ssr: false,
+});
 
 const loadingComponent = <div className="h-screen w-screen flex justify-center items-center">
     <LoadingSpinner className="h-24 w-24 transform scale-50"/></div>
