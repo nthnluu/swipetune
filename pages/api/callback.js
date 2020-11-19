@@ -18,7 +18,7 @@ export default async (req, res) => {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded'
             },
-            body: `grant_type=authorization_code&code=${code}&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fcallback&client_id=b0507091c8dc4c41a62222a147fa2273&client_secret=13b78a59450c45a19c18e1731c6eab6a`
+            body: `grant_type=authorization_code&code=${code}&redirect_uri=${encodeURIComponent(process.env.NEXT_PUBLIC_SITE_URL + "/api/callback")}&client_id=b0507091c8dc4c41a62222a147fa2273&client_secret=13b78a59450c45a19c18e1731c6eab6a`
         })
             .then((tokenData) => tokenData.json())
             .then(tokenJson => {
@@ -31,7 +31,7 @@ export default async (req, res) => {
                     .then(profileData => profileData.json())
                     .then(profileJson => {
                         // Profile successfully fetched; update user profile in Firestore
-                        fetch('http://localhost:3000/api/user', {
+                        fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/user`, {
                             method: 'POST',
                             body: JSON.stringify({token: tokenJson, profile: profileJson})
                         })
