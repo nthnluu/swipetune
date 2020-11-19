@@ -9,8 +9,10 @@ export default async (req, res) => {
             .doc(bodyData.profile['id'])
             .set(bodyData)
             .then((doc) => {
+                console.log(doc.writeTime)
                 fbAdmin.auth().createCustomToken(bodyData.profile['id'])
                     .then(function(customToken) {
+                        console.log(customToken)
                         res.status(200).json({customToken});
                         resolve()
                     })
