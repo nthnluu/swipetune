@@ -36,6 +36,7 @@ function MyApp({Component, pageProps}) {
         window.addEventListener('resize', adaptViewport);
     }, [])
 
+
     return <SessionContext.Provider value={session}>
         <BackgroundImageContext.Provider value={setBgImage}>
             <BlurryImageBackground image={bgImage}>

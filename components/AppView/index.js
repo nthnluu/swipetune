@@ -81,8 +81,6 @@ const AppView = () => {
                 <i className="fas fa-play mr-2"/>Resume Playback
             </button>}
         </div>}
-
-
     </div>
 
 }

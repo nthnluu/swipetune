@@ -12,8 +12,8 @@ const BlurryImageBackground = ({image, children}) => {
         })
 
     }, [image])
-    return <div className="h-screen dark:bg-gray-900 bg-black text-white">
-        <div className="z-50 relative h-screen overflow-auto"
+    return <div className="full-height dark:bg-gray-900 bg-black text-white">
+        <div className="z-50 relative h-full overflow-auto"
              style={{backdropFilter: "blur(98px)", "WebkitBackdropFilter": "blur(98px)"}}>
             {children}
 
@@ -21,7 +21,7 @@ const BlurryImageBackground = ({image, children}) => {
         <div className="absolute top-0">
             <CrossfadeImage src={image}
                             style={{height: '100%', width: '100%'}}
-                            containerClass="absolute top-0 h-screen w-screen opacity-75"/>
+                            containerClass="absolute top-0 h-full w-screen opacity-75"/>
         </div>
     </div>
 }
