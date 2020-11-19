@@ -52,6 +52,7 @@ const AppView = () => {
             return result
         })
     }
+
     function playAudio(force = false) {
         const newAudio = new Audio(data['preview_url'])
         newAudio.loop = true
@@ -81,8 +82,9 @@ const AppView = () => {
             <motion.img animate={audio ? {scale: 1, opacity: 1} : {scale: 0.75, opacity: 0.75}}
                         src={data.album.images[0].url} className="rounded-xl mx-auto"/>
 
-            <h1 className="text-2xl md:text-4xl font-bold text-center mt-6">{data.name}</h1>
-            <h2 className="text-lg md:text-2xl opacity-75 font-light text-center mt-2">{`${data && data.album.name} • ${data.artists[0].name}`}</h2>
+            <h1 className="text-2xl md:text-4xl font-bold text-center mt-6 truncate">{data.name}</h1>
+            <h2 className="text-lg md:text-2xl opacity-75 font-light text-center mt-2 truncate">
+                {`${data && data.album.name} • ${data.artists[0].name}`}</h2>
             <div className="flex justify-center space-x-6 items-center mt-6">
                 <button className={styles.circleButton}
                         onClick={navigateBackwards}
@@ -106,8 +108,7 @@ const AppView = () => {
 
                 </button>
                 <button className={styles.circleButton}
-                        onClick={navigateForward}
-                >
+                        onClick={navigateForward}>
                     <svg
                         className={styles.circleButtonIcon}
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
