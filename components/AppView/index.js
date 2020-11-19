@@ -66,7 +66,7 @@ const AppView = () => {
         }
     }
 
-    return <div className="h-screen flex justify-center items-center">
+    return <div className="full-height flex justify-center items-center">
         <NavigationBar className="fixed top-0 w-full"/>
         {data && <div className="px-4 text-center">
             <TinderCard key={data} flickOnSwipe={false} onSwipe={swipeHandler}>

@@ -9,7 +9,7 @@ module.exports = {
                 frosted: 'rgba(255,255,255,0.1)'
             },
             fontFamily: {
-                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter var', ...defaultTheme.fontFamily.sans],
             }
         }
     },

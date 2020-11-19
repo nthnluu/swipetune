@@ -26,6 +26,16 @@ function MyApp({Component, pageProps}) {
         });
     }, [])
 
+    function adaptViewport() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+
+    useEffect(() => {
+        adaptViewport()
+        window.addEventListener('resize', adaptViewport);
+    }, [])
+
     return <SessionContext.Provider value={session}>
         <BackgroundImageContext.Provider value={setBgImage}>
             <BlurryImageBackground image={bgImage}>
