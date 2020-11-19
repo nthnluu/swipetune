@@ -4,8 +4,8 @@ import {useContext} from "react";
 const NavigationBar = ({className}) => {
     const {profile} = useContext(SessionContext)
 
-    return <div className={"p-4 flex justify-between items-center " + className}>
-        <button className="p-2 rounded-lg border-2 hover:bg-frosted inline-flex justify-between items-center">
+    return <div className={"py-8 md:py-4 px-4 flex justify-center md:justify-between items-center " + className}>
+        <button className="p-2 rounded-lg hover:bg-frosted inline-flex justify-between items-center">
             <span>December 2020</span>
             <svg
                 className="h-6 w-6 text-white ml-2"
@@ -14,9 +14,8 @@ const NavigationBar = ({className}) => {
             </svg>
         </button>
 
-        <button className="p-2 rounded-lg hover:bg-frosted inline-flex justify-between items-center">
+        <button className="p-2 hidden rounded-lg hover:bg-frosted md:inline-flex justify-between items-center">
             <img src={profile.profile.images[0]['url']} className="h-8 w-8 rounded-full border border-frosted mr-2"/>
-            <span className="text-lg text-right">{profile.profile['display_name']}</span>
         </button>
 
     </div>
