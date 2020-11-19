@@ -1,6 +1,6 @@
 import fbAdmin from "../../lib/firebase-admin";
 
-export default (req, res) => {
+export default async (req, res) => {
     if (req.method === 'POST') {
         const bodyData = JSON.parse(req.body)
         console.log(bodyData)
