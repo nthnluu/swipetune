@@ -4,7 +4,6 @@ export default async (req, res) => {
     res.statusCode = 200
     if (req.method === 'POST') {
         const {token} = JSON.parse(req.body)
-
         return new Promise(resolve => fbAdmin.auth().verifyIdToken(token)
             .then(function (decodedToken) {
                 let uid = decodedToken.uid;

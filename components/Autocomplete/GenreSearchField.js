@@ -13,7 +13,7 @@ const people = [
 ]
 
 
-const GenreSearchField = () => {
+const GenreSearchField = ({setGenres}) => {
     const [selectedPerson, setSelectedPerson] = useState(people[0])
     const [isOpen, toggleOpen] = useState(false)
     const [value, setValue] = useState("")
@@ -161,14 +161,17 @@ const GenreSearchField = () => {
                onChange={event => setValue(event.target.value)}
                value={value}
                onFocus={() => toggleOpen(true)}
-               onBlur={() => toggleOpen(false)}
+               onBlur={() => setTimeout(()  => toggleOpen(false), 200)}
                className="p-4 text-xl w-full relative block rounded-lg border-2 border-white bg-transparent focus:outline-none"
-               placeholder="Genres"/>
+               placeholder="Genres *"/>
         {(isOpen && results.length > 0) && <ul
             style={{maxHeight: '16rem'}}
             className="sm:w-full absolute divide-y overflow-y-auto z-50 divide-gray-700 max-w-lg bg-gray-900 border border-gray-700 rounded-lg shadow-lg">
-            {results.map(genre => <li>
-                <button className="hover:bg-gray-800 text-xl text-white w-full text-left p-3">
+            {results.map(genre => <li key={genre.index}>
+                <button className="hover:bg-gray-800 text-xl text-white w-full text-left p-3" onClick={() => {
+                    setGenres(genre.item)
+                    setValue("")
+                }}>
                     {genre.item}
                 </button>
             </li>)}
