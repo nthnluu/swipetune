@@ -7,18 +7,18 @@ const AppView = dynamic(() => import("../components/AppView"), {
     ssr: false,
 });
 
-const loadingComponent = <div className="h-screen w-screen flex justify-center items-center">
-    <LoadingSpinner className="h-24 w-24 transform scale-50"/></div>
+export const LoadingComponent = () => (<div className="h-screen w-screen flex justify-center items-center">
+    <LoadingSpinner className="h-24 w-24 transform scale-50"/></div>)
 
 export default function Home() {
     const {status, profile} = useContext(SessionContext)
-    const [currentComponent, setCurrentComponent] = useState(loadingComponent)
+    const [currentComponent, setCurrentComponent] = useState(<LoadingComponent/>)
 
     useEffect(() => {
         // Change the view depending on auth state
         switch (status) {
             case ('LOADING'):
-                setCurrentComponent(loadingComponent)
+                setCurrentComponent(<LoadingComponent/>)
                 break
             case ('IN'):
                 setCurrentComponent(<AppView/>)
@@ -27,7 +27,7 @@ export default function Home() {
                 setCurrentComponent(<LoginView/>)
                 break
             default:
-                setCurrentComponent(loadingComponent)
+                setCurrentComponent(<LoadingComponent/>)
                 break
         }
 

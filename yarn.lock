@@ -483,6 +483,11 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.1.0.tgz#6c9eafc78c1529248f8f4d92b0799a712b6052c6"
   integrity sha512-i9YbZPN3QgfighY/1X1Pu118VUz2Fmmhd6b2n0/O8YVgGGfw0FbUYoA97k7FkpGJ+pLCFEDLUmAPPV4D1kpeFw==
 
+"@headlessui/react@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-0.2.0.tgz#a31f90892d736243ba91c1474f534b3256d0c538"
+  integrity sha512-YV+vF+QhTRcspydPdHF3ZXe+FkOiJpRdqMjjFIIX9bSdT2O2T7GurgKQdGgamNUM+B99MZBOTRqxS8Dlh485eg==
+
 "@next/env@10.0.2":
   version "10.0.2"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-10.0.2.tgz#b0479a0d4d962f9f85a577298cee260c310dfa3f"
@@ -2392,6 +2397,11 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
+
+fuse.js@^6.4.3:
+  version "6.4.3"
+  resolved "https://registry.yarnpkg.com/fuse.js/-/fuse.js-6.4.3.tgz#aadd6ac34aab5b1d6e6c60462fcb4d1c3f53bb01"
+  integrity sha512-JNgngolukIrqwayWnvy6NLH63hmwKPhm63o0uyBg51jPD0j09IvAzlV1rTXfAsgxpghI7khAo6Mv+EmvjDWXig==
 
 gauge@~2.7.3:
   version "2.7.4"

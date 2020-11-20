@@ -1,6 +1,6 @@
 const LoginView = () => {
     function signInSpotify() {
-        window.location.href = `https://accounts.spotify.com/authorize?client_id=b0507091c8dc4c41a62222a147fa2273&response_type=code&redirect_uri=${encodeURIComponent(process.env.NEXT_PUBLIC_SITE_URL + "/api/callback/")}`
+        window.location.href = `https://accounts.spotify.com/authorize?client_id=b0507091c8dc4c41a62222a147fa2273&response_type=code&redirect_uri=${encodeURIComponent(process.env.NEXT_PUBLIC_SITE_URL + "/api/callback/")}&scope=user-top-read%20playlist-modify-private`
     }
 
     return <div className="h-screen flex justify-start items-center">
